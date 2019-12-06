@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Copying the gluepytest executable for pytest-watch
+
+ROOT_DIR="$(cd $(dirname "$0")/..; pwd)"
+source $ROOT_DIR/bin/glue-setup.sh
+exec ptw "$@"

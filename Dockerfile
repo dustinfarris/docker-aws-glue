@@ -20,9 +20,12 @@ RUN wget -qO- https://codeload.github.com/awslabs/aws-glue-libs/tar.gz/glue-1.0 
 ENV PATH="/aws-glue-libs-glue-1.0/bin:${PATH}"
 
 # Install pytest
-RUN pip3 install pytest
-RUN pip3 install pytest-watch
+RUN pip3 install pytest pytest-watch ipdb
 COPY glueptw /aws-glue-libs-glue-1.0/bin/glueptw
+
+# Prevent a dependency duplication bug with aws glue pom.xml
+# See: https://github.com/awslabs/aws-glue-libs/issues/25
+RUN ln -s /spark/jars /aws-glue-libs-glue-1.0/jarsv1
 
 # Bootstrap the AWS Glue environment (gluepytest will execute glue-setup.sh)
 # This executes the copy-dependencies target in Maven and takes a while to complete

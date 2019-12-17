@@ -23,6 +23,9 @@ ENV PATH="/aws-glue-libs-glue-1.0/bin:${PATH}"
 RUN pip3 install pytest pytest-watch ipdb
 COPY glueptw /aws-glue-libs-glue-1.0/bin/glueptw
 
+# Install boto3
+RUN pip3 install boto3
+
 # Prevent a dependency duplication bug with aws glue pom.xml
 # See: https://github.com/awslabs/aws-glue-libs/issues/25
 RUN ln -s /spark/jars /aws-glue-libs-glue-1.0/jarsv1
